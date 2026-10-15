@@ -9,11 +9,15 @@ class Book(models.Model):
     total_copies = models.PositiveIntegerField(default=1)
     available_copies = models.PositiveIntegerField(default=0)
     cover_image = models.ImageField(upload_to='book_covers/', blank=True, null=True)  # ← novo
+    total_copies = models.PositiveIntegerField(default=1)
 
+   #save = metodo chamado toda vez que tivemos uma alteração num valor da nossa classe(antes de ir pro banco de dados passa por aqui)
     def save(self, *args, **kwargs):
         if not self.id:  # Only set on creation
             self.available_copies = self.total_copies
         super().save(*args, **kwargs)
+        
 
     def __str__(self):
-        return self.title
+        return f"{self.title} escrito por {self.author}"
+    
